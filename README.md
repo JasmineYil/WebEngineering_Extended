@@ -1,13 +1,9 @@
-# Web Engineering Extended Playground
-## How to start
-
-
-
------
-# Tasks:
-# Extended Coding Playgrounds
+# Web Engineering Extended Coding Playgrounds
 Please create a new independent Repository for these playgrounds and submit a link to it in the Moodle submission. 
 Additionally, provide a description of how to start your frontend and backend services inside the `README.md`.
+
+## How to start frontend and backend services
+
 
 ## Submission
 Submit your coding repository link in Moodle. Send me an invitation to your repository if it is set to private:
