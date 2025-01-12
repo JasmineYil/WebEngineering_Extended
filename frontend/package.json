@@ -2,11 +2,12 @@
   "name": "webengineering_playground",
   "version": "1.0.0",
   "description": "This repository is designed as the foundation for coding playgrounds in the Web Engineering course. It offers a structured space for experimenting with and mastering various web development technologies and practices. \r The project is based on [this](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/Accessibility_troubleshooting) repository from MDN.",
-  "main": "src/main.ts",
+  "main": "src/main.tsx",
   "scripts": {
-    "prepare": "husky install",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "serve": "vite preview",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
@@ -21,6 +22,10 @@
       "npm run format"
     ]
   },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -29,6 +34,8 @@
     "@types/jsdom": "^21.1.7",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@vitest/coverage-v8": "^2.1.4",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
