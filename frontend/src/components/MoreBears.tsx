@@ -12,7 +12,7 @@ const MoreBears: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const baseUrl = 'https://en.wikipedia.org/w/api.php';
+  const baseUrl = 'http://localhost:5000/api/bears';
   const title = 'List_of_ursids';
   const params = {
     action: 'parse',
@@ -24,31 +24,15 @@ const MoreBears: React.FC = () => {
   };
 
   const fetchImageUrl = async (fileName: string): Promise<string> => {
-    const imageParams = {
-      action: 'query',
-      titles: `File:${fileName}`,
-      prop: 'imageinfo',
-      iiprop: 'url',
-      format: 'json',
-      origin: '*',
-    };
-    const url = `${baseUrl}?${new URLSearchParams(imageParams).toString()}`;
     try {
-      const res = await fetch(url);
-      if (!res.ok)
-        throw new Error(`Network response was not ok: ${res.status}`);
-      const data: {
-        query: { pages: Record<string, { imageinfo?: [{ url: string }] }> };
-      } = await res.json();
+      const res = await fetch(`http://localhost:5000/api/bear-image?fileName=${fileName}`);
+      const data = await res.json();
       const pages = data.query.pages;
-      const imageInfo = Object.values(pages)[0].imageinfo;
-      if (
-        imageInfo === null ||
-        imageInfo === undefined || // @ts-expect-error: Image info can sometimes be null or undefined due to inconsistent API responses.
-        imageInfo.length === 0
-      ) {
-        throw new Error('Image URL not found');
-      }
+      const firstPage = Object.values(pages)[0];
+      // @ts-ignore
+      const imageInfo = firstPage?.imageinfo;
+
+      if (!imageInfo || imageInfo.length === 0) throw new Error('Image URL not found');
       return imageInfo[0].url;
     } catch (error) {
       console.error('Error fetching image URL:', error);
@@ -89,9 +73,13 @@ const MoreBears: React.FC = () => {
       try {
         const url = `${baseUrl}?${new URLSearchParams(params).toString()}`;
         const res = await fetch(url);
-        if (!res.ok)
-          throw new Error(`Network response was not ok: ${res.status}`);
+        if (!res.ok) throw new Error(`Network response was not ok: ${res.status}`);
         const data = await res.json();
+
+        if (!data.parse || !data.parse.wikitext) {
+          throw new Error('Invalid response structure from Wikipedia API');
+        }
+
         const wikitext = data.parse.wikitext['*'];
         const bearsData = await extractBears(wikitext);
         setBears(bearsData);
@@ -106,7 +94,7 @@ const MoreBears: React.FC = () => {
     fetchBearData();
   }, []);
 
-  if (loading) return <p>Loading bear data...</p>;
+  if (loading) return <p className="content">Loading bear data...</p>;
   if (error) return <p>{error}</p>;
 
   return (
