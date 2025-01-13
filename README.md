@@ -4,6 +4,26 @@ Additionally, provide a description of how to start your frontend and backend se
 
 ## How to start frontend and backend services
 
+1. Build and Run in Development Mode:
+> docker-compose -f docker-compose.yml up --build
+
+- This will start both the backend and frontend in development mode.
+- Backend: Runs on http://localhost:5000
+- Frontend: Runs on http://localhost:5173
+
+2. Build and Run in Production Mode:
+> docker-compose -f docker-compose.prod.yml up --build
+
+- Backend and frontend will run in production mode.
+- Frontend: Runs on http://localhost:80
+
+## Project Structure
+
+- Backend: Runs with Express.js and serves bear data and images.
+- Frontend: Built with Vite and React, served over Nginx in production.
+- Caching: Implemented in the backend for bear data and images.
+
+---
 
 ## Submission
 Submit your coding repository link in Moodle. Send me an invitation to your repository if it is set to private:
