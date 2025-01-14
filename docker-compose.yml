@@ -7,11 +7,12 @@ services:
       dockerfile: Dockerfile
       target: dev
     ports:
-      - "5000:5000"
+      - "${BACKEND_PORT}:5000"
     volumes:
       - ./backend:/app
+      - /app/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=${NODE_ENV}
 
   frontend:
     build:
@@ -22,5 +23,6 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=${NODE_ENV}

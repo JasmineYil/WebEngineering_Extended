@@ -4,17 +4,19 @@ Additionally, provide a description of how to start your frontend and backend se
 
 ## How to start frontend and backend services
 
-1. Build and Run in Development Mode:
-> docker-compose -f docker-compose.yml up --build
+### 1. Development Mode
+To build and run the project in development mode with the environment configuration, use the following command:
+> docker-compose -f docker-compose.yml --env-file .env.dev up --build
 
 - This will start both the backend and frontend in development mode.
 - Backend: Runs on http://localhost:5000
 - Frontend: Runs on http://localhost:5173
 
-2. Build and Run in Production Mode:
-> docker-compose -f docker-compose.prod.yml up --build
+### 2. Production Mode
+To build and run the project in production mode with the environment configuration, use the following command:
+> docker-compose -f docker-compose.prod.yml --env-file .env.prod up --build
 
-- Backend and frontend will run in production mode.
+- Both the backend and frontend services will start in production mode.
 - Frontend: Runs on http://localhost:80
 
 ## Project Structure
